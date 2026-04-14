@@ -6,9 +6,9 @@ RUN mvn package
 FROM eclipse-temurin:25-noble AS runtime
 LABEL project =devops
 LABEL author = "Dill"
-RUN useradd -m /deploy -s /bin/bash dill
+RUN useradd -m -d /deploy -s /bin/bash dill
 USER dill
-WORKDIR /Deploy
+WORKDIR /deploy
 COPY --from=build /deploy/target/*.jar dill.jar
 EXPOSE 8080
 CMD ["java", "-jar", "dill.jar"]
