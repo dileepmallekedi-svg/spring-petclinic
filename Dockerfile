@@ -1,4 +1,4 @@
-FROM maven 4.0.0-rc-5-eclipse-temurin-25-alpine AS build
+FROM maven:4.0.0-rc-5-eclipse-temurin-25-alpine AS build
 ADD . /deploy
 WORKDIR /deploy
 RUN mvn package 
