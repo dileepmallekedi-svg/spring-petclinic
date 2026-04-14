@@ -3,7 +3,7 @@ ADD . /deploy
 WORKDIR /deploy
 RUN mvn package 
 
-FROM eclipse-temurin:25-noble
+FROM eclipse-temurin:25-noble AS runtime
 COPY --from=build /deploy/target/*.jar dill.jar
 EXPOSE 8080
 CMD ["java", "-jar", "dill.jar"]
