@@ -4,8 +4,8 @@ WORKDIR /deploy
 RUN mvn package 
 
 FROM eclipse-temurin:25-noble AS runtime
-LABEL project =devops
-LABEL author = "Dill"
+LABEL project =spc
+LABEL author = Devops
 RUN useradd -m -d /deploy -s /bin/bash dill
 USER dill
 WORKDIR /deploy
