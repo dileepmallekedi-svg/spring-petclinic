@@ -9,8 +9,9 @@ pipeline {
 
         stage('git checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/dileepmallekedi-svg/spring-petclinic.git'
+                
+                git url: 'https://github.com/dileepmallekedi-svg/spring-petclinic.git'
+                    branch: 'main'
             }
         }
 
