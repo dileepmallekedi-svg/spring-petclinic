@@ -18,7 +18,7 @@ pipeline {
             steps {
 
                 withCredentials([
-                    string(credentialsId: 'SONAR', variable: 'SONAR_TOKEN')
+                    string(credentialsId: 'sonar_id', variable: 'SONAR_TOKEN')
                 ]) {
 
                     withSonarQubeEnv('sonar') {
