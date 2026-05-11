@@ -1,27 +1,38 @@
 pipeline {
-    agent{label 'JAVA'}
+    agent { label 'JAVA' }
+
     triggers {
-        pollSCM('* *  * * *')
+        pollSCM('* * * * *')
     }
+
     stages {
+
         stage('git checkout') {
             steps {
-                git url:'https://github.com/dileepmallekedi-svg/spring-petclinic.git'
-                branch :'main'
+                git branch: 'main',
+                    url: 'https://github.com/dileepmallekedi-svg/spring-petclinic.git'
             }
         }
+
         stage('build and scan') {
             steps {
-                withCrendentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) 
-                withsonarQubeEnv('sonar') {
-                sh '''mvn package sonar:sonar 
-                -Dsonar.projectKey=dileepmallekedi-svg_spring-petclinic \
-                -Dsonar.organization=dileepmallekedi-svg \
-                -Dsonar.host.url=https://sonarcloud.io/ \
-                -Dsonar.login=$SONAR_TOKEN'''
+
+                withCredentials([
+                    string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')
+                ]) {
+
+                    withSonarQubeEnv('sonar') {
+
+                        sh '''
+                            mvn clean package sonar:sonar \
+                            -Dsonar.projectKey=dileepmallekedi-svg_spring-petclinic \
+                            -Dsonar.organization=dileepmallekedi-svg \
+                            -Dsonar.host.url=https://sonarcloud.io \
+                            -Dsonar.login=$SONAR_TOKEN
+                        '''
+                    }
                 }
             }
         }
     }
-    
 }
