@@ -1,24 +1,17 @@
 pipeline {
-
-    agent { label 'SPC' }
-     triggers { 
-         pollSCM('* * * * *')
-     }
-
+    agent{label 'JAVA'} 
     stages {
-
         stage('git checkout') {
             steps {
-                git url: 'https://github.com/spring-projects/spring-petclinic.git',
-                    branch: 'main'
+                git url 'https://github.com/dileepmallekedi-svg/spring-petclinic.git'
+                branch: 'main'
             }
         }
-
         stage('build and scan') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'sonar-1',variable: 'SONAR_TOKEN')]) {
-                withSonarQubeEnv('SONARSERVER') {
-                sh '''mvn package sonar:sonar \
+                withCrendentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) 
+                withsonarQubeEnv('sonar') {
+                sh '''mvn package sonar:sonar 
                 -Dsonar.projectKey=dileepmallekedi-svg_spring-petclinic \
                 -Dsonar.organization=dileepmallekedi-svg \
                 -Dsonar.host.url=https://sonarcloud.io/ \
@@ -27,5 +20,5 @@ pipeline {
             }
         }
     }
-}
+    
 }
