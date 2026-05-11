@@ -16,6 +16,7 @@ pipeline {
 
         stage('build and scan') {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'sonar_id',variable: 'SONAR_TOKEN')]) {
                 withSonarQubeEnv('SONAR') {
                 sh 'mvn package sonar:sonar'
                 }
