@@ -1,5 +1,8 @@
 pipeline {
-    agent{label 'JAVA'} 
+    agent{label 'JAVA'}
+    triggers {
+        pollSCM('* *  * * *')
+    }
     stages {
         stage('git checkout') {
             steps {
