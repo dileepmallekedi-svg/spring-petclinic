@@ -10,7 +10,7 @@ pipeline {
             }
             stage('build and scan') {
                 steps {
-                    sh 'mvn package'
+                    sh 'mvn package sonar:sonar'
                 }
             }
         }
