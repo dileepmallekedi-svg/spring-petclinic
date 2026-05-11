@@ -18,7 +18,11 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'sonar_id',variable: 'SONAR_TOKEN')]) {
                 withSonarQubeEnv('SONAR') {
-                sh 'mvn package sonar:sonar'
+                sh '''mvn package sonar:sonar \
+                -Dsonar.projectKey=dileepmallekedi-svg_spring-petclinic \
+                -Dsonar.organization=dileepmallekedi-svg\
+                -Dsonar.host.url=https://sonarcloud.io/ \
+                -Dsonar.login=$SONAR_TOKEN'''
                 }
             }
         }
